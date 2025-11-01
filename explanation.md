@@ -22,7 +22,21 @@
 
 # git reset --soft HEAD~1
 
+- Commit History (HEAD Movement): The HEAD pointer (and your current branch, e.g., main) is moved backward by one commit. This effectively undoes the last commit from the project's history.
+
+- Staging Area (Content Preservation): The changes (the actual code modifications) that were part of the undone commit are moved to the Staging Area (or Index). This is the state where files are marked as ready for the next commit, as if you had just run git add ..
+
+- Working Directory (Files on Disk): The files in your working directory (the code on your local disk) remain unchanged. The code looks exactly as it did right after the commit was originally made.
+
 # git reset
 
 - git reset (default git reset HEAD .): unstage all changes
 - git reset HEAD <file name> : unstage file changes
+
+# git push origin main
+
+# model - view - controller
+
+Router (url on website) -> /user
+=> route => controller handle
+=> render view
