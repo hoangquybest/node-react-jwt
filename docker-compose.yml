@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  # Tên dịch vụ của bạn (có thể đặt tên là database, db, hoặc mysql)
+  db:
+    image: mysql:8.0
+    container_name: jwt-mysql
+    restart: always # Tự động khởi động lại nếu bị lỗi
+    ports:
+      - "3306:3306" # Ánh xạ cổng
+
+    environment:
+      # Thay đổi mật khẩu này
+      # MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: jwt # Tên database
+      # Đảm bảo các biến này khớp với biến môi trường trong file .env của bạn
+
+    volumes:
+      # Ánh xạ thư mục chứa script khởi tạo SQL
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      # (Tùy chọn) Lưu trữ dữ liệu vào thư mục cục bộ để giữ lại dữ liệu
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

@@ -13,3 +13,7 @@ npm install ejs
 npm install @babel/core @babel/node @babel/preset-env
 
 npm install nodemon
+
+npm install mysql2
+
+npm install bcryptjs

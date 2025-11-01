@@ -46,3 +46,7 @@ Router (url on website) -> /user
 # bootstrap 5
 
 - grid -> 12 columns
+
+# chmod +x run.sh
+
+# chmod u+x run.sh

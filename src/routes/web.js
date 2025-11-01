@@ -1,7 +1,6 @@
 import express from "express";
 import homeController from "../controller/homeController";
 import userController from "../controller/userController";
-import { handleUserRequest } from "../controller/userController";
 
 const router = express.Router();
 
@@ -16,7 +15,9 @@ const initWebRoutes = (app) => {
     return res.send("This is the about page.");
   });
 
-  router.get("/user", handleUserRequest);
+  router.get("/user", userController.handleUserRequest);
+
+  router.post("/users", userController.handleCreateUser);
 
   return app.use("/", router);
 };
