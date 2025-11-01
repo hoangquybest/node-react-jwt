@@ -40,3 +40,9 @@
 Router (url on website) -> /user
 => route => controller handle
 => render view
+
+# vanilla Javascript (bootstrap 5)
+
+# bootstrap 5
+
+- grid -> 12 columns
