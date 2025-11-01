@@ -17,3 +17,5 @@ npm install nodemon
 npm install mysql2
 
 npm install bcryptjs
+
+npm install bluebird

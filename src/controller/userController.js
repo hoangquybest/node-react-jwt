@@ -1,10 +1,10 @@
 import userService from "../services/userService";
 
-const handleGetUsers = (req, res) => {
-  const users = userService.getAllUsers();
+const handleGetUserPage = async (req, res) => {
+  const users = await userService.getAllUsers();
   console.log(users);
 
-  res.render("user");
+  res.render("user", { users });
 };
 
 const handleCreateUser = (req, res) => {
@@ -18,4 +18,4 @@ const handleCreateUser = (req, res) => {
   res.send("User created successfully.");
 };
 
-module.exports = { handleGetUsers, handleCreateUser };
+module.exports = { handleGetUserPage, handleCreateUser };
