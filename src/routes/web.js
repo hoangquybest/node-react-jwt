@@ -15,7 +15,7 @@ const initWebRoutes = (app) => {
     return res.send("This is the about page.");
   });
 
-  router.get("/user", userController.handleUserRequest);
+  router.get("/users", userController.handleGetUsers);
 
   router.post("/users", userController.handleCreateUser);
 

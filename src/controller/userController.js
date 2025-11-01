@@ -1,23 +1,21 @@
-// Get the client
-const mysql = require("mysql2");
+import userService from "../services/userService";
 
-// Create the connection to database
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "jwt",
-});
+const handleGetUsers = (req, res) => {
+  const users = userService.getAllUsers();
+  console.log(users);
 
-const handleUserRequest = (req, res) => {
   res.render("user");
 };
 
 const handleCreateUser = (req, res) => {
-  console.log("Request Body:", req.body);
-  connection.query("SELECT * FROM `users`", function (err, results, fields) {
-    console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
-  });
+  const { email, username, password } = req.body;
+
+  console.log(req.body);
+
+  console.log(email, username, password);
+  userService.createNewUser(email, username, password);
+
   res.send("User created successfully.");
 };
-module.exports = { handleUserRequest, handleCreateUser };
+
+module.exports = { handleGetUsers, handleCreateUser };
