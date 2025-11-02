@@ -9,22 +9,44 @@ const hashPassword = (userPassword) => {
   return hashPassword;
 };
 
-const createNewUser = (email, username, password) => {
+const createNewUser = async (email, username, password) => {
+  // Create the connection to database
+  const connection = await mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "jwt",
+    Promise: bluebird,
+  });
+
   // Logic to create a new user
   let bcryptedPassword = hashPassword(password);
 
-  connection.query(
-    "INSERT INTO users (email, username, password) VALUES (?, ?, ?)",
-    [email, username, bcryptedPassword],
-    (err, results) => {
-      if (err) {
-        console.error("Error inserting user:", err);
-        return false;
-      }
-      console.log("User created with ID:", results.insertId);
-      return true;
-    }
-  );
+  // connection.query(
+  //   "INSERT INTO users (email, username, password) VALUES (?, ?, ?)",
+  //   [email, username, bcryptedPassword],
+  //   (err, results) => {
+  //     if (err) {
+  //       console.error("Error inserting user:", err);
+  //       return false;
+  //     }
+  //     console.log("User created with ID:", results.insertId);
+  //     return true;
+  //   }
+  // );
+
+  try {
+    const sql =
+      "INSERT INTO `users`(`email`, `username`, `password`) VALUES (?, ?, ?)";
+    const values = [email, username, bcryptedPassword];
+
+    const [result, fields] = await connection.execute(sql, values);
+
+    console.log(result);
+    console.log(fields);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const getAllUsers = async () => {
