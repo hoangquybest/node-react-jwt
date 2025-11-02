@@ -50,3 +50,5 @@ Router (url on website) -> /user
 # chmod +x run.sh
 
 # chmod u+x run.sh
+
+# cmd + P / Ctrl + P: To see unsaved files

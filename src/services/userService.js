@@ -14,7 +14,9 @@ const createNewUser = async (email, username, password) => {
   const connection = await mysql.createConnection({
     host: "localhost",
     user: "root",
+    password: "your_root_password",
     database: "jwt",
+    port: 3307,
     Promise: bluebird,
   });
 
@@ -54,7 +56,9 @@ const getAllUsers = async () => {
   const connection = await mysql.createConnection({
     host: "localhost",
     user: "root",
+    password: "your_root_password",
     database: "jwt",
+    port: 3307,
     Promise: bluebird,
   });
 

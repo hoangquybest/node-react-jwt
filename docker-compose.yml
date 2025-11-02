@@ -7,14 +7,13 @@ services:
     container_name: jwt-mysql
     restart: always # Tự động khởi động lại nếu bị lỗi
     ports:
-      - "3306:3306" # Ánh xạ cổng
+      - "3307:3306" # Ánh xạ cổng
 
     environment:
-      # Thay đổi mật khẩu này
-      # MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: jwt # Tên database
-      # Đảm bảo các biến này khớp với biến môi trường trong file .env của bạn
+      MYSQL_ROOT_PASSWORD: your_root_password # Replace with a strong password
+      MYSQL_DATABASE: jwt
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_user_password
 
     volumes:
       # Ánh xạ thư mục chứa script khởi tạo SQL

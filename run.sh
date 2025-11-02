@@ -46,3 +46,35 @@ docker compose up -d
 
 # 8. Access database using cli 
 # docker exec -it jwt-mysql mysql -u root -p
+# mysql -h 127.0.0.1 -P 3306 -u root
+
+# docker ps -a | grep jwt-mysql
+# docker volume ls
+# docker volume prune -f
+# rm -rf ./mysql_data_local
+# https://stackoverflow.com/questions/59838692/mysql-root-password-is-set-but-getting-access-denied-for-user-rootlocalhost
+
+# SELECT Host, User FROM mysql.user;
+
+# jdbc:mysql://127.0.0.1:3306/jwt?allowPublicKeyRetrieval=true&useSSL=false
+
+# ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'your_root_password';
+# GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+# FLUSH PRIVILEGES;
+
+# CREATE USER 'app_user'@'%' IDENTIFIED WITH mysql_native_password BY 'app_password';
+# GRANT ALL PRIVILEGES ON jwt.* TO 'app_user'@'%';
+# FLUSH PRIVILEGES;
+
+# SELECT user, host, plugin FROM mysql.user;
+# mysql> SELECT user, host, plugin FROM mysql.user;
+# +------------------+-----------+-----------------------+
+# | user             | host      | plugin                |
+# +------------------+-----------+-----------------------+
+# | root             | %         | caching_sha2_password |
+# | your_username    | %         | caching_sha2_password |
+# | mysql.infoschema | localhost | caching_sha2_password |
+# | mysql.session    | localhost | caching_sha2_password |
+# | mysql.sys        | localhost | caching_sha2_password |
+# | root             | localhost | caching_sha2_password |
+# +------------------+-----------+-----------------------+

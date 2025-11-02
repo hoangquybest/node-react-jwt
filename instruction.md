@@ -19,3 +19,9 @@ npm install mysql2
 npm install bcryptjs
 
 npm install bluebird
+
+npm install sequelize
+
+npm install sequalize-cli
+
+npx sequelize-cli init
