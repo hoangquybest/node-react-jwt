@@ -1,0 +1,27 @@
+"use strict";
+const { Model } = require("sequelize");
+const group = require("./group");
+module.exports = (sequelize, DataTypes) => {
+  class GroupRoleRole extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  GroupRole.init(
+    {
+      groupId: DataTypes.INTEGER,
+      roleId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "GroupRole",
+      tableName: "group_role",
+    }
+  );
+  return GroupRole;
+};

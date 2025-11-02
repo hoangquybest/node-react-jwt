@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import mysql from "mysql2/promise";
 import bluebird from "bluebird";
+import db from "../models";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -11,14 +12,14 @@ const hashPassword = (userPassword) => {
 
 const createNewUser = async (email, username, password) => {
   // Create the connection to database
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "your_root_password",
-    database: "jwt",
-    port: 3307,
-    Promise: bluebird,
-  });
+  // const connection = await mysql.createConnection({
+  //   host: "localhost",
+  //   user: "root",
+  //   password: "your_root_password",
+  //   database: "jwt",
+  //   port: 3307,
+  //   Promise: bluebird,
+  // });
 
   // Logic to create a new user
   let bcryptedPassword = hashPassword(password);
@@ -36,33 +37,53 @@ const createNewUser = async (email, username, password) => {
   //   }
   // );
 
+  // try {
+  //   const sql =
+  //     "INSERT INTO `users`(`email`, `username`, `password`) VALUES (?, ?, ?)";
+  //   const values = [email, username, bcryptedPassword];
+
+  //   const [result, fields] = await connection.execute(sql, values);
+
+  //   console.log(result);
+  //   console.log(fields);
+  //   return result;
+  // } catch (err) {
+  //   console.log(err);
+  // }
+
   try {
-    const sql =
-      "INSERT INTO `users`(`email`, `username`, `password`) VALUES (?, ?, ?)";
-    const values = [email, username, bcryptedPassword];
-
-    const [result, fields] = await connection.execute(sql, values);
-
-    console.log(result);
-    console.log(fields);
-    return result;
+    const newUser = await db.User.create({
+      email: email,
+      username: username,
+      password: bcryptedPassword,
+    });
+    return newUser;
   } catch (err) {
     console.log(err);
   }
 };
 
 const getAllUsers = async () => {
-  // Create the connection to database
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "your_root_password",
-    database: "jwt",
-    port: 3307,
-    Promise: bluebird,
-  });
-
   let users = [];
+
+  try {
+    const users = await db.User.findAll();
+  } catch (error) {
+    console.log(error);
+  }
+
+  return users;
+
+  // Create the connection to database
+  // const connection = await mysql.createConnection({
+  //   host: "localhost",
+  //   user: "root",
+  //   password: "your_root_password",
+  //   database: "jwt",
+  //   port: 3307,
+  //   Promise: bluebird,
+  // });
+
   // connection.query("SELECT * FROM users", (err, results) => {
   //   if (err) {
   //     console.error("Error fetching users:", err);
@@ -71,12 +92,12 @@ const getAllUsers = async () => {
   //   users = results;
   //   return users;
   // });
-  try {
-    const [rows, fields] = await connection.query("SELECT * FROM users");
-    return rows;
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   const [rows, fields] = await connection.query("SELECT * FROM users");
+  //   return rows;
+  // } catch (error) {
+  //   console.log(error);
+  // }
 };
 
 module.exports = { createNewUser, getAllUsers };
