@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import mysql from "mysql2/promise";
 import bluebird from "bluebird";
 import db from "../models";
+import { raw } from "body-parser";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -66,11 +67,22 @@ const createNewUser = async (email, username, password) => {
 const getAllUsers = async () => {
   let users = [];
 
+  let user = await db.User.findOne({
+    where: { id: 1 },
+    include: { model: db.Group },
+    nest: true,
+    raw: true,
+  });
+
+  console.log(">>>Check user:", user);
+
   try {
-    const users = await db.User.findAll();
+    users = await db.User.findAll();
   } catch (error) {
     console.log(error);
   }
+
+  console.log(users);
 
   return users;
 
